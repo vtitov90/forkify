@@ -59,6 +59,7 @@ export const loadSearchResults = async function (query) {
       };
     });
     state.search.page = 1;
+    console.log(state.search.results);
   } catch (err) {
     console.error(`${err} 💥💥`);
     throw err;
@@ -132,6 +133,10 @@ export const uploadRecipe = async function (newRecipe) {
         }
 
         const [quantity, unit, description] = ingArr;
+        if (+quantity < 0 && quantity !== '')
+          throw new Error(
+            'Quantity must not be negative value!Please use correct format :)'
+          );
         return { quantity: quantity ? +quantity : null, unit, description };
       });
 

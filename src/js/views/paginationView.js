@@ -3,6 +3,7 @@ import View from './View.js';
 
 class PaginationView extends View {
   _parentElement = document.querySelector('.pagination');
+  _allPagesNum = document.querySelector('.all_pages span');
 
   addHandlerRender(handler) {
     this._parentElement.addEventListener('click', function (e) {
@@ -11,7 +12,6 @@ class PaginationView extends View {
       if (!btn) return;
 
       const goToPage = +btn.dataset.goto;
-      console.log(goToPage);
 
       handler(goToPage);
     });
@@ -23,7 +23,8 @@ class PaginationView extends View {
     const numPages = Math.ceil(
       this._data.results.length / this._data.resultsPerPage
     );
-  
+
+    this._allPagesNum.textContent = `${curPage}/${numPages}`;
 
     // Page 1, there are other pages
     if (curPage === 1 && numPages > 1) {
